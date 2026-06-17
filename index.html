@@ -1,1799 +1,1162 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Baby Journey Tracker</title><link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
-
-/* =========================
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Baby Journey Tracker</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+	/* =========================
    THEME VARIABLES
 ========================= */
-
-:root{
-
---bg:#0f172a;
---bg2:#1e293b;
-
---card:rgba(255,255,255,.08);
---card-border:rgba(255,255,255,.12);
-
---text:#ffffff;
---muted:#cbd5e1;
-
---accent:#38bdf8;
---accent2:#22c55e;
-
---shadow:
-0 15px 40px rgba(0,0,0,.30);
-
---radius:24px;
-
-}
-
-body.light{
-
---bg:#f8fafc;
---bg2:#e2e8f0;
-
---card:rgba(255,255,255,.85);
---card-border:rgba(0,0,0,.08);
-
---text:#0f172a;
---muted:#64748b;
-
---shadow:
-0 10px 30px rgba(0,0,0,.08);
-
-}
-
-/* =========================
+	
+	:root {
+		--bg: #0f172a;
+		--bg2: #1e293b;
+		--card: rgba(255, 255, 255, .08);
+		--card-border: rgba(255, 255, 255, .12);
+		--text: #ffffff;
+		--muted: #cbd5e1;
+		--accent: #38bdf8;
+		--accent2: #22c55e;
+		--shadow: 0 15px 40px rgba(0, 0, 0, .30);
+		--radius: 24px;
+	}
+	
+	body.light {
+		--bg: #f8fafc;
+		--bg2: #e2e8f0;
+		--card: rgba(255, 255, 255, .85);
+		--card-border: rgba(0, 0, 0, .08);
+		--text: #0f172a;
+		--muted: #64748b;
+		--shadow: 0 10px 30px rgba(0, 0, 0, .08);
+	}
+	/* =========================
    RESET
 ========================= */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-
-font-family:'Poppins',sans-serif;
-
-background:
-linear-gradient(
-135deg,
-var(--bg),
-var(--bg2)
-);
-
-color:var(--text);
-
-min-height:100vh;
-
-overflow-x:hidden;
-
-transition:.4s;
-
-}
-
-/* =========================
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	html {
+		scroll-behavior: smooth;
+	}
+	
+	body {
+		font-family: 'Poppins', sans-serif;
+		background: linear-gradient( 135deg, var(--bg), var(--bg2));
+		color: var(--text);
+		min-height: 100vh;
+		overflow-x: hidden;
+		transition: .4s;
+	}
+	/* =========================
    PARTICLE CANVAS
 ========================= */
-
-#particles{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-z-index:-1;
-
-pointer-events:none;
-
-}
-
-/* =========================
+	
+	#particles {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		pointer-events: none;
+	}
+	/* =========================
    APP CONTAINER
 ========================= */
-
-.app-container{
-
-max-width:1200px;
-
-margin:auto;
-
-padding:
-20px
-20px
-120px;
-
-}
-
-/* =========================
+	
+	.app-container {
+		max-width: 1200px;
+		margin: auto;
+		padding: 20px 20px 120px;
+	}
+	/* =========================
    GLASS CARD
 ========================= */
-
-.glass-card{
-
-background:var(--card);
-
-backdrop-filter:blur(20px);
-
--webkit-backdrop-filter:blur(20px);
-
-border:
-1px solid
-var(--card-border);
-
-border-radius:var(--radius);
-
-padding:24px;
-
-margin-bottom:24px;
-
-box-shadow:var(--shadow);
-
-transition:.3s;
-
-}
-
-.glass-card:hover{
-
-transform:
-translateY(-2px);
-
-}
-
-/* =========================
+	
+	.glass-card {
+		background: var(--card);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 1px solid var(--card-border);
+		border-radius: var(--radius);
+		padding: 24px;
+		margin-bottom: 24px;
+		box-shadow: var(--shadow);
+		transition: .3s;
+	}
+	
+	.glass-card:hover {
+		transform: translateY(-2px);
+	}
+	/* =========================
    HEADINGS
 ========================= */
-
-h1,h2,h3,h4{
-
-font-weight:600;
-
-}
-
-h3{
-
-margin-bottom:20px;
-
-font-size:1.15rem;
-
-}
-
-/* =========================
+	
+	h1,
+	h2,
+	h3,
+	h4 {
+		font-weight: 600;
+	}
+	
+	h3 {
+		margin-bottom: 20px;
+		font-size: 1.15rem;
+	}
+	/* =========================
    HERO CARD
 ========================= */
-
-.hero-card{
-
-background:var(--card);
-
-border:
-1px solid
-var(--card-border);
-
-backdrop-filter:blur(25px);
-
-border-radius:32px;
-
-padding:28px;
-
-box-shadow:var(--shadow);
-
-margin-bottom:24px;
-
-}
-
-.hero-top{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-gap:15px;
-
-}
-
-#heroTitle{
-
-font-size:2rem;
-
-font-weight:700;
-
-}
-
-#heroSubtitle{
-
-margin-top:6px;
-
-color:var(--muted);
-
-font-size:.95rem;
-
-}
-
-#pregnancyAge{
-
-text-align:center;
-
-font-size:1.8rem;
-
-margin-top:10px;
-
-}
-
-#heroStatus{
-
-text-align:center;
-
-margin-top:10px;
-
-color:var(--muted);
-
-}
-
-/* =========================
+	
+	.hero-card {
+		background: var(--card);
+		border: 1px solid var(--card-border);
+		backdrop-filter: blur(25px);
+		border-radius: 32px;
+		padding: 28px;
+		box-shadow: var(--shadow);
+		margin-bottom: 24px;
+	}
+	
+	.hero-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 15px;
+	}
+	
+	#heroTitle {
+		font-size: 2rem;
+		font-weight: 700;
+	}
+	
+	#heroSubtitle {
+		margin-top: 6px;
+		color: var(--muted);
+		font-size: .95rem;
+	}
+	
+	#pregnancyAge {
+		text-align: center;
+		font-size: 1.8rem;
+		margin-top: 10px;
+	}
+	
+	#heroStatus {
+		text-align: center;
+		margin-top: 10px;
+		color: var(--muted);
+	}
+	/* =========================
    THEME BUTTON
 ========================= */
-
-#themeToggle{
-
-width:52px;
-height:52px;
-
-border:none;
-
-border-radius:50%;
-
-cursor:pointer;
-
-font-size:1.2rem;
-
-background:
-linear-gradient(
-135deg,
-var(--accent),
-var(--accent2)
-);
-
-color:white;
-
-transition:.3s;
-
-}
-
-#themeToggle:hover{
-
-transform:scale(1.08);
-
-}
-
-/* =========================
+	
+	#themeToggle {
+		width: 52px;
+		height: 52px;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		font-size: 1.2rem;
+		background: linear-gradient( 135deg, var(--accent), var(--accent2));
+		color: white;
+		transition: .3s;
+	}
+	
+	#themeToggle:hover {
+		transform: scale(1.08);
+	}
+	/* =========================
    HEARTBEAT
 ========================= */
-
-.heartbeat{
-
-font-size:80px;
-
-text-align:center;
-
-margin:
-15px
-0;
-
-animation:
-heartbeat
-1.2s
-infinite;
-
-}
-
-@keyframes heartbeat{
-
-0%{
-transform:scale(1);
-}
-
-15%{
-transform:scale(1.18);
-}
-
-30%{
-transform:scale(1);
-}
-
-45%{
-transform:scale(1.18);
-}
-
-60%{
-transform:scale(1);
-}
-
-100%{
-transform:scale(1);
-}
-
-}
-
-/* =========================
+	
+	.heartbeat {
+		font-size: 80px;
+		text-align: center;
+		margin: 15px 0;
+		animation: heartbeat 1.2s infinite;
+	}
+	
+	@keyframes heartbeat {
+		0% {
+			transform: scale(1);
+		}
+		15% {
+			transform: scale(1.18);
+		}
+		30% {
+			transform: scale(1);
+		}
+		45% {
+			transform: scale(1.18);
+		}
+		60% {
+			transform: scale(1);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+	/* =========================
    SECTION FADE
 ========================= */
-
-.glass-card,
-.hero-card{
-
-animation:
-fadeUp
-.6s ease;
-
-}
-
-@keyframes fadeUp{
-
-from{
-
-opacity:0;
-
-transform:
-translateY(15px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:
-translateY(0);
-
-}
-
-}
-
-/* =========================
+	
+	.glass-card,
+	.hero-card {
+		animation: fadeUp .6s ease;
+	}
+	
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(15px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	/* =========================
    PRE START SECTION
 ========================= */
-
-#preStartSection{
-
-display:none;
-
-}
-
-/* =========================
+	
+	#preStartSection {
+		display: none;
+	}
+	/* =========================
    DASHBOARD
 ========================= */
-
-#dashboardSection{
-
-display:none;
-
-}
-
-/* =========================
+	
+	#dashboardSection {
+		display: none;
+	}
+	/* =========================
    PROGRESS RING
 ========================= */
-
-.ring-wrapper{
-display:flex;
-justify-content:center;
-align-items:center;
-margin:20px 0;
-}
-
-.ring-wrapper svg{
-width:280px;
-height:280px;
-}
-
-.ring-bg{
-fill:none;
-stroke:rgba(255,255,255,.12);
-stroke-width:16;
-}
-
-.ring-progress{
-fill:none;
-stroke:var(--accent);
-stroke-width:16;
-stroke-linecap:round;
-transform:rotate(-90deg);
-transform-origin:center;
-transition:.8s;
-}
-
-#progressText{
-fill:var(--text);
-font-size:28px;
-font-weight:700;
-}
-
-/* =========================
+	
+	.ring-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 20px 0;
+	}
+	
+	.ring-wrapper svg {
+		width: 280px;
+		height: 280px;
+	}
+	
+	.ring-bg {
+		fill: none;
+		stroke: rgba(255, 255, 255, .12);
+		stroke-width: 16;
+	}
+	
+	.ring-progress {
+		fill: none;
+		stroke: var(--accent);
+		stroke-width: 16;
+		stroke-linecap: round;
+		transform: rotate(-90deg);
+		transform-origin: center;
+		transition: .8s;
+	}
+	
+	#progressText {
+		fill: var(--text);
+		font-size: 28px;
+		font-weight: 700;
+	}
+	/* =========================
    STATS
 ========================= */
-
-.progress-stats,
-.stats-grid,
-.growth-info{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-gap:15px;
-
-}
-
-.stat-card{
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:18px;
-
-padding:18px;
-
-text-align:center;
-
-}
-
-.stat-card h4{
-
-font-size:1.4rem;
-
-margin-bottom:6px;
-
-}
-
-.stat-card span{
-
-color:var(--muted);
-
-font-size:.9rem;
-
-}
-
-/* =========================
+	
+	.progress-stats,
+	.stats-grid,
+	.growth-info {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 15px;
+	}
+	
+	.stat-card {
+		background: rgba(255, 255, 255, .05);
+		border: 1px solid rgba(255, 255, 255, .08);
+		border-radius: 18px;
+		padding: 18px;
+		text-align: center;
+	}
+	
+	.stat-card h4 {
+		font-size: 1.4rem;
+		margin-bottom: 6px;
+	}
+	
+	.stat-card span {
+		color: var(--muted);
+		font-size: .9rem;
+	}
+	/* =========================
    COUNTDOWNS
 ========================= */
-
-.countdown-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(110px,1fr));
-
-gap:15px;
-
-}
-
-.time-box{
-
-background:rgba(255,255,255,.05);
-
-border-radius:18px;
-
-padding:18px;
-
-text-align:center;
-
-}
-
-.time-box span{
-
-display:block;
-
-font-size:1.8rem;
-
-font-weight:700;
-
-}
-
-.time-box label{
-
-display:block;
-
-margin-top:6px;
-
-color:var(--muted);
-
-font-size:.9rem;
-
-}
-
-/* =========================
+	
+	.countdown-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+		gap: 15px;
+	}
+	
+	.time-box {
+		background: rgba(255, 255, 255, .05);
+		border-radius: 18px;
+		padding: 18px;
+		text-align: center;
+	}
+	
+	.time-box span {
+		display: block;
+		font-size: 1.8rem;
+		font-weight: 700;
+	}
+	
+	.time-box label {
+		display: block;
+		margin-top: 6px;
+		color: var(--muted);
+		font-size: .9rem;
+	}
+	/* =========================
    IMAGE VIEWER
 ========================= */
-
-.view-switch{
-
-display:flex;
-
-gap:10px;
-
-margin-bottom:20px;
-
-}
-
-.view-switch button{
-
-flex:1;
-
-border:none;
-
-padding:12px;
-
-border-radius:14px;
-
-cursor:pointer;
-
-font-weight:600;
-
-background:rgba(255,255,255,.08);
-
-color:var(--text);
-
-}
-
-.image-wrapper{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-}
-
-#babyImage{
-
-width:100%;
-
-max-width:420px;
-
-height:auto;
-
-border-radius:22px;
-
-border:
-1px solid
-rgba(255,255,255,.1);
-
-}
-
-#imageCaption{
-
-text-align:center;
-
-margin-top:15px;
-
-color:var(--muted);
-
-}
-
-/* =========================
+	
+	.view-switch {
+		display: flex;
+		gap: 10px;
+		margin-bottom: 20px;
+	}
+	
+	.view-switch button {
+		flex: 1;
+		border: none;
+		padding: 12px;
+		border-radius: 14px;
+		cursor: pointer;
+		font-weight: 600;
+		background: rgba(255, 255, 255, .08);
+		color: var(--text);
+	}
+	
+	.image-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	#babyImage {
+		width: 100%;
+		max-width: 420px;
+		height: auto;
+		border-radius: 22px;
+		border: 1px solid rgba(255, 255, 255, .1);
+	}
+	
+	#imageCaption {
+		text-align: center;
+		margin-top: 15px;
+		color: var(--muted);
+	}
+	/* =========================
    BABY GROWTH
 ========================= */
-
-.growth-layout{
-
-display:grid;
-
-grid-template-columns:
-1fr 2fr;
-
-gap:20px;
-
-align-items:center;
-
-}
-
-.fruit-area{
-
-text-align:center;
-
-}
-
-#fruitEmoji{
-
-font-size:70px;
-
-}
-
-#fruitName{
-
-margin-top:10px;
-
-}
-
-#babyFact{
-
-margin-top:20px;
-
-line-height:1.7;
-
-color:var(--muted);
-
-}
-
-/* =========================
+	
+	.growth-layout {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
+		gap: 20px;
+		align-items: center;
+	}
+	
+	.fruit-area {
+		text-align: center;
+	}
+	
+	#fruitEmoji {
+		font-size: 70px;
+	}
+	
+	#fruitName {
+		margin-top: 10px;
+	}
+	
+	#babyFact {
+		margin-top: 20px;
+		line-height: 1.7;
+		color: var(--muted);
+	}
+	/* =========================
    WEEKLY FACTS
 ========================= */
-
-#weeklyFacts{
-
-line-height:1.8;
-
-color:var(--muted);
-
-}
-
-/* =========================
+	
+	#weeklyFacts {
+		line-height: 1.8;
+		color: var(--muted);
+	}
+	/* =========================
    TIMELINE
 ========================= */
-
-#timelineContainer{
-
-display:flex;
-
-flex-direction:column;
-
-gap:12px;
-
-}
-
-.timeline-item{
-
-padding:15px;
-
-border-radius:16px;
-
-background:rgba(255,255,255,.05);
-
-border-left:4px solid transparent;
-
-transition:.3s;
-
-}
-
-.timeline-item.completed{
-
-border-left-color:#22c55e;
-
-}
-
-.timeline-item.current{
-
-border-left-color:#38bdf8;
-
-transform:scale(1.02);
-
-}
-
-.timeline-item.upcoming{
-
-opacity:.7;
-
-}
-
-/* =========================
+	
+	#timelineContainer {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	
+	.timeline-item {
+		padding: 15px;
+		border-radius: 16px;
+		background: rgba(255, 255, 255, .05);
+		border-left: 4px solid transparent;
+		transition: .3s;
+	}
+	
+	.timeline-item.completed {
+		border-left-color: #22c55e;
+	}
+	
+	.timeline-item.current {
+		border-left-color: #38bdf8;
+		transform: scale(1.02);
+	}
+	
+	.timeline-item.upcoming {
+		opacity: .7;
+	}
+	/* =========================
    CONFETTI
 ========================= */
-
-#confettiContainer{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-pointer-events:none;
-
-overflow:hidden;
-
-z-index:9999;
-
-}
-
-/* =========================
+	
+	#confettiContainer {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		overflow: hidden;
+		z-index: 9999;
+	}
+	/* =========================
    MOBILE NAV
 ========================= */
-
-.bottom-nav{
-
-position:fixed;
-
-bottom:0;
-left:0;
-right:0;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-padding:10px;
-
-background:rgba(15,23,42,.85);
-
-backdrop-filter:blur(15px);
-
-border-top:
-1px solid
-rgba(255,255,255,.1);
-
-z-index:1000;
-
-}
-
-.bottom-nav button{
-
-background:none;
-
-border:none;
-
-color:white;
-
-font-size:.9rem;
-
-cursor:pointer;
-
-}
-
-/* =========================
+	
+	.bottom-nav {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		padding: 10px;
+		background: rgba(15, 23, 42, .85);
+		backdrop-filter: blur(15px);
+		border-top: 1px solid rgba(255, 255, 255, .1);
+		z-index: 1000;
+	}
+	
+	.bottom-nav button {
+		background: none;
+		border: none;
+		color: white;
+		font-size: .9rem;
+		cursor: pointer;
+	}
+	/* =========================
    RESPONSIVE
 ========================= */
+	
+	@media(max-width:768px) {
+		.hero-top {
+			flex-direction: column;
+			text-align: center;
+		}
+		#heroTitle {
+			font-size: 1.7rem;
+		}
+		#pregnancyAge {
+			font-size: 1.4rem;
+		}
+		.heartbeat {
+			font-size: 60px;
+		}
+		.ring-wrapper svg {
+			width: 240px;
+			height: 240px;
+		}
+		.growth-layout {
+			grid-template-columns: 1fr;
+		}
+		.time-box span {
+			font-size: 1.5rem;
+		}
+	}
+	
+	@media(max-width:480px) {
+		.app-container {
+			padding: 15px 15px 100px;
+		}
+		.glass-card,
+		.hero-card {
+			padding: 18px;
+		}
+		.time-box {
+			padding: 12px;
+		}
+		.time-box span {
+			font-size: 1.25rem;
+		}
+	}
+	</style>
+</head>
 
-@media(max-width:768px){
-
-.hero-top{
-
-flex-direction:column;
-
-text-align:center;
-
-}
-
-#heroTitle{
-
-font-size:1.7rem;
-
-}
-
-#pregnancyAge{
-
-font-size:1.4rem;
-
-}
-
-.heartbeat{
-
-font-size:60px;
-
-}
-
-.ring-wrapper svg{
-
-width:240px;
-height:240px;
-
-}
-
-.growth-layout{
-
-grid-template-columns:1fr;
-
-}
-
-.time-box span{
-
-font-size:1.5rem;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.app-container{
-
-padding:15px 15px 100px;
-
-}
-
-.glass-card,
-.hero-card{
-
-padding:18px;
-
-}
-
-.time-box{
-
-padding:12px;
-
-}
-
-.time-box span{
-
-font-size:1.25rem;
-
-}
-
-}
-
-</style>
-
-</head><body><canvas id="particles"></canvas>
-
-<div class="app-container"><!-- HERO SECTION --><section class="hero-card"><div class="hero-top"><div><h1 id="heroTitle">
+<body>
+	<canvas id="particles"></canvas>
+	<div class="app-container">
+		<!-- HERO SECTION -->
+		<section class="hero-card">
+			<div class="hero-top">
+				<div>
+					<h1 id="heroTitle">
 👶 Baby Journey
-</h1><p id="heroSubtitle">
-Tracking from LMP
-</p></div><button id="themeToggle">
-🌙
-</button></div><div class="heartbeat">
-❤️
-</div><h2 id="pregnancyAge">
+</h1>
+					<p id="heroSubtitle"> Tracking from LMP </p>
+				</div>
+				<button id="themeToggle"> 🌙 </button>
+			</div>
+			<div class="heartbeat"> ❤️ </div>
+			<h2 id="pregnancyAge">
 Pregnancy Not Started
-</h2><p id="heroStatus">
-Waiting for LMP Date
-</p></section><!-- PRE START SECTION --><section id="preStartSection" class="glass-card"><h3>
+</h2>
+			<p id="heroStatus"> Waiting for LMP Date </p>
+		</section>
+		<!-- PRE START SECTION -->
+		<section id="preStartSection" class="glass-card">
+			<h3>
 ⏳ Pregnancy Starts In
-</h3><div class="countdown-grid"><div class="time-box">
-<span id="preMonths">0</span>
-<label>Months</label>
-</div><div class="time-box">
-<span id="preWeeks">0</span>
-<label>Weeks</label>
-</div><div class="time-box">
-<span id="preDays">0</span>
-<label>Days</label>
-</div><div class="time-box">
-<span id="preHours">0</span>
-<label>Hours</label>
-</div><div class="time-box">
-<span id="preMinutes">0</span>
-<label>Minutes</label>
-</div><div class="time-box">
-<span id="preSeconds">0</span>
-<label>Seconds</label>
-</div></div></section><!-- MAIN DASHBOARD --><section id="dashboardSection"><!-- PROGRESS RING --><section class="glass-card"><h3>
+</h3>
+			<div class="countdown-grid">
+				<div class="time-box"> <span id="preMonths">0</span>
+					<label>Months</label>
+				</div>
+				<div class="time-box"> <span id="preWeeks">0</span>
+					<label>Weeks</label>
+				</div>
+				<div class="time-box"> <span id="preDays">0</span>
+					<label>Days</label>
+				</div>
+				<div class="time-box"> <span id="preHours">0</span>
+					<label>Hours</label>
+				</div>
+				<div class="time-box"> <span id="preMinutes">0</span>
+					<label>Minutes</label>
+				</div>
+				<div class="time-box"> <span id="preSeconds">0</span>
+					<label>Seconds</label>
+				</div>
+			</div>
+		</section>
+		<!-- MAIN DASHBOARD -->
+		<section id="dashboardSection">
+			<!-- PROGRESS RING -->
+			<section class="glass-card">
+				<h3>
 Pregnancy Progress
-</h3><div class="ring-wrapper"><svg viewBox="0 0 240 240"><circle
-cx="120"
-cy="120"
-r="95"
-class="ring-bg"
-/>
-
-<circle
-id="progressRing"
-cx="120"
-cy="120"
-r="95"
-class="ring-progress"
-/>
-
-<text
-id="progressText"
-x="120"
-y="130"
-text-anchor="middle">
-0%
-</text>
-
-</svg></div><div class="progress-stats"><div class="stat-card">
-<h4 id="completedDays">
+</h3>
+				<div class="ring-wrapper">
+					<svg viewBox="0 0 240 240">
+						<circle cx="120" cy="120" r="95" class="ring-bg" />
+						<circle id="progressRing" cx="120" cy="120" r="95" class="ring-progress" />
+						<text id="progressText" x="120" y="130" text-anchor="middle"> 0% </text>
+					</svg>
+				</div>
+				<div class="progress-stats">
+					<div class="stat-card">
+						<h4 id="completedDays">
 0
-</h4>
-<span>
+</h4> <span>
 Days Completed
-</span>
-</div><div class="stat-card">
-<h4 id="remainingDays">
+</span> </div>
+					<div class="stat-card">
+						<h4 id="remainingDays">
 0
-</h4>
-<span>
+</h4> <span>
 Days Remaining
-</span>
-</div></div></section><!-- COUNTDOWNS --><section class="glass-card"><h3>
+</span> </div>
+				</div>
+			</section>
+			<!-- COUNTDOWNS -->
+			<section class="glass-card">
+				<h3>
 ⏳ Due Date Countdown
-</h3><div class="countdown-grid"><div class="time-box">
-<span id="months">0</span>
-<label>Months</label>
-</div><div class="time-box">
-<span id="weeks">0</span>
-<label>Weeks</label>
-</div><div class="time-box">
-<span id="days">0</span>
-<label>Days</label>
-</div><div class="time-box">
-<span id="hours">0</span>
-<label>Hours</label>
-</div><div class="time-box">
-<span id="minutes">0</span>
-<label>Minutes</label>
-</div><div class="time-box">
-<span id="seconds">0</span>
-<label>Seconds</label>
-</div></div></section>
-
-<section class="glass-card"><h3>
+</h3>
+				<div class="countdown-grid">
+					<div class="time-box"> <span id="months">0</span>
+						<label>Months</label>
+					</div>
+					<div class="time-box"> <span id="weeks">0</span>
+						<label>Weeks</label>
+					</div>
+					<div class="time-box"> <span id="days">0</span>
+						<label>Days</label>
+					</div>
+					<div class="time-box"> <span id="hours">0</span>
+						<label>Hours</label>
+					</div>
+					<div class="time-box"> <span id="minutes">0</span>
+						<label>Minutes</label>
+					</div>
+					<div class="time-box"> <span id="seconds">0</span>
+						<label>Seconds</label>
+					</div>
+				</div>
+			</section>
+			<section class="glass-card">
+				<h3>
 📅 Remaining Time (Week Format)
-</h3><div class="countdown-grid"><div class="time-box">
-<span id="weekOnly">0</span>
-<label>Weeks</label>
-</div><div class="time-box">
-<span id="weekDays">0</span>
-<label>Days</label>
-</div><div class="time-box">
-<span id="weekHours">0</span>
-<label>Hours</label>
-</div><div class="time-box">
-<span id="weekMinutes">0</span>
-<label>Minutes</label>
-</div><div class="time-box">
-<span id="weekSeconds">0</span>
-<label>Seconds</label>
-</div></div></section>
-
-<!-- COMPLETION TIME (FULL FORMAT) -->
-<section class="glass-card">
-  <h3>📈 Completed Time (Full Format)</h3>
-
-  <div class="countdown-grid">
-    <div class="time-box">
-      <span id="compMonths">0</span>
-      <label>Months</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compWeeks">0</span>
-      <label>Weeks</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compDays">0</span>
-      <label>Days</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compHours">0</span>
-      <label>Hours</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compMinutes">0</span>
-      <label>Minutes</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compSeconds">0</span>
-      <label>Seconds</label>
-    </div>
-  </div>
-</section>
-
-<!-- COMPLETION TIME (WEEK FORMAT) -->
-<section class="glass-card">
-  <h3>📊 Completed Time (Week Format)</h3>
-
-  <div class="countdown-grid">
-    <div class="time-box">
-      <span id="compWeekOnly">0</span>
-      <label>Weeks</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compWeekDays">0</span>
-      <label>Days</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compWeekHours">0</span>
-      <label>Hours</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compWeekMinutes">0</span>
-      <label>Minutes</label>
-    </div>
-
-    <div class="time-box">
-      <span id="compWeekSeconds">0</span>
-      <label>Seconds</label>
-    </div>
-  </div>
-</section>
-
-
-<!-- IMAGE VIEWER --><section class="glass-card"><h3>
+</h3>
+				<div class="countdown-grid">
+					<div class="time-box"> <span id="weekOnly">0</span>
+						<label>Weeks</label>
+					</div>
+					<div class="time-box"> <span id="weekDays">0</span>
+						<label>Days</label>
+					</div>
+					<div class="time-box"> <span id="weekHours">0</span>
+						<label>Hours</label>
+					</div>
+					<div class="time-box"> <span id="weekMinutes">0</span>
+						<label>Minutes</label>
+					</div>
+					<div class="time-box"> <span id="weekSeconds">0</span>
+						<label>Seconds</label>
+					</div>
+				</div>
+			</section>
+			<!-- COMPLETION TIME (FULL FORMAT) -->
+			<section class="glass-card">
+				<h3>📈 Completed Time (Full Format)</h3>
+				<div class="countdown-grid">
+					<div class="time-box"> <span id="compMonths">0</span>
+						<label>Months</label>
+					</div>
+					<div class="time-box"> <span id="compWeeks">0</span>
+						<label>Weeks</label>
+					</div>
+					<div class="time-box"> <span id="compDays">0</span>
+						<label>Days</label>
+					</div>
+					<div class="time-box"> <span id="compHours">0</span>
+						<label>Hours</label>
+					</div>
+					<div class="time-box"> <span id="compMinutes">0</span>
+						<label>Minutes</label>
+					</div>
+					<div class="time-box"> <span id="compSeconds">0</span>
+						<label>Seconds</label>
+					</div>
+				</div>
+			</section>
+			<!-- COMPLETION TIME (WEEK FORMAT) -->
+			<section class="glass-card">
+				<h3>📊 Completed Time (Week Format)</h3>
+				<div class="countdown-grid">
+					<div class="time-box"> <span id="compWeekOnly">0</span>
+						<label>Weeks</label>
+					</div>
+					<div class="time-box"> <span id="compWeekDays">0</span>
+						<label>Days</label>
+					</div>
+					<div class="time-box"> <span id="compWeekHours">0</span>
+						<label>Hours</label>
+					</div>
+					<div class="time-box"> <span id="compWeekMinutes">0</span>
+						<label>Minutes</label>
+					</div>
+					<div class="time-box"> <span id="compWeekSeconds">0</span>
+						<label>Seconds</label>
+					</div>
+				</div>
+			</section>
+			<!-- IMAGE VIEWER -->
+			<section class="glass-card">
+				<h3>
 👶 Baby Development
-</h3><div class="view-switch"><button id="developmentBtn">
-Development
-</button><button id="ultrasoundBtn">
-Ultrasound
-</button></div><div class="image-wrapper"><img
-id="babyImage"
-src=""
-alt="Baby Development">
-
-</div><p id="imageCaption">
-Week Based Development Image
-</p></section><!-- BABY GROWTH --><section class="glass-card"><h3>
+</h3>
+				<div class="view-switch">
+					<button id="developmentBtn"> Development </button>
+					<button id="ultrasoundBtn"> Ultrasound </button>
+				</div>
+				<div class="image-wrapper"><img id="babyImage" src="" alt="Baby Development"> </div>
+				<p id="imageCaption"> Week Based Development Image </p>
+			</section>
+			<!-- BABY GROWTH -->
+			<section class="glass-card">
+				<h3>
 🍎 Baby Growth
-</h3><div class="growth-layout"><div class="fruit-area"><div id="fruitEmoji">
-🍇
-</div><h2 id="fruitName">
+</h3>
+				<div class="growth-layout">
+					<div class="fruit-area">
+						<div id="fruitEmoji"> 🍇 </div>
+						<h2 id="fruitName">
 Blueberry
-</h2></div><div class="growth-info"><div class="stat-card"><h4 id="babyLength">
+</h2></div>
+					<div class="growth-info">
+						<div class="stat-card">
+							<h4 id="babyLength">
 --
 </h4><span>
 Length
-</span></div><div class="stat-card"><h4 id="babyWeight">
+</span></div>
+						<div class="stat-card">
+							<h4 id="babyWeight">
 --
 </h4><span>
 Weight
-</span></div></div></div><p id="babyFact">Weekly development information appears here.
-
-</p></section><!-- THIS WEEK --><section class="glass-card"><h3>
+</span></div>
+					</div>
+				</div>
+				<p id="babyFact">Weekly development information appears here. </p>
+			</section>
+			<!-- THIS WEEK -->
+			<section class="glass-card">
+				<h3>
 📖 This Week
-</h3><div id="weeklyFacts">Baby development details appear here.
-
-</div></section><!-- TIMELINE --><section class="glass-card"><h3>
+</h3>
+				<div id="weeklyFacts">Baby development details appear here. </div>
+			</section>
+			<!-- TIMELINE -->
+			<section class="glass-card">
+				<h3>
 🗺 Pregnancy Journey
-</h3><div id="timelineContainer"><div class="timeline-item" data-week="4">
-🌱 Week 4 - Implantation
-</div><div class="timeline-item" data-week="6">
-❤️ Week 6 - Heartbeat
-</div><div class="timeline-item" data-week="8">
-🫐 Week 8 - Blueberry Stage
-</div><div class="timeline-item" data-week="12">
-🩺 Week 12 - NT Scan
-</div><div class="timeline-item" data-week="16">
-👶 Week 16 - Growth Milestone
-</div><div class="timeline-item" data-week="20">
-🔍 Week 20 - Anatomy Scan
-</div><div class="timeline-item" data-week="24">
-🫁 Week 24 - Viability
-</div><div class="timeline-item" data-week="28">
-🎉 Week 28 - Third Trimester
-</div><div class="timeline-item" data-week="32">
-👣 Week 32 - Rapid Growth
-</div><div class="timeline-item" data-week="36">
-🧳 Week 36 - Hospital Prep
-</div><div class="timeline-item" data-week="37">
-👶 Week 37 - Early Term
-</div><div class="timeline-item" data-week="39">
-⏳ Week 39 - Full Term
-</div><div class="timeline-item" data-week="40">
-🎂 Week 40 - Due Date
-</div></div></section><!-- STATS --><section class="glass-card"><h3>
+</h3>
+				<div id="timelineContainer">
+					<div class="timeline-item" data-week="4"> 🌱 Week 4 - Implantation </div>
+					<div class="timeline-item" data-week="6"> ❤️ Week 6 - Heartbeat </div>
+					<div class="timeline-item" data-week="8"> 🫐 Week 8 - Blueberry Stage </div>
+					<div class="timeline-item" data-week="12"> 🩺 Week 12 - NT Scan </div>
+					<div class="timeline-item" data-week="16"> 👶 Week 16 - Growth Milestone </div>
+					<div class="timeline-item" data-week="20"> 🔍 Week 20 - Anatomy Scan </div>
+					<div class="timeline-item" data-week="24"> 🫁 Week 24 - Viability </div>
+					<div class="timeline-item" data-week="28"> 🎉 Week 28 - Third Trimester </div>
+					<div class="timeline-item" data-week="32"> 👣 Week 32 - Rapid Growth </div>
+					<div class="timeline-item" data-week="36"> 🧳 Week 36 - Hospital Prep </div>
+					<div class="timeline-item" data-week="37"> 👶 Week 37 - Early Term </div>
+					<div class="timeline-item" data-week="39"> ⏳ Week 39 - Full Term </div>
+					<div class="timeline-item" data-week="40"> 🎂 Week 40 - Due Date </div>
+				</div>
+			</section>
+			<!-- STATS -->
+			<section class="glass-card">
+				<h3>
 📊 Statistics
-</h3><div class="stats-grid"><div class="stat-card">
-<h4 id="statAge">--</h4>
-<span>Pregnancy Age</span>
-</div><div class="stat-card">
-<h4 id="statTrimester">--</h4>
-<span>Trimester</span>
-</div><div class="stat-card">
-<h4 id="statCompleted">--</h4>
-<span>Completed</span>
-</div><div class="stat-card">
-<h4 id="statRemaining">--</h4>
-<span>Remaining</span>
-</div></div></section></section><!-- CONFETTI --><div id="confettiContainer"></div><!-- MOBILE NAVIGATION --><nav class="bottom-nav"><button>
-🏠 Home
-</button><button>
-👶 Baby
-</button><button>
-📅 Timeline
-</button><button>
-📊 Stats
-</button></nav></div><script>
+</h3>
+				<div class="stats-grid">
+					<div class="stat-card">
+						<h4 id="statAge">--</h4> <span>Pregnancy Age</span> </div>
+					<div class="stat-card">
+						<h4 id="statTrimester">--</h4> <span>Trimester</span> </div>
+					<div class="stat-card">
+						<h4 id="statCompleted">--</h4> <span>Completed</span> </div>
+					<div class="stat-card">
+						<h4 id="statRemaining">--</h4> <span>Remaining</span> </div>
+				</div>
+			</section>
+		</section>
+		<!-- CONFETTI -->
+		<div id="confettiContainer"></div>
+		<!-- MOBILE NAVIGATION -->
+		<nav class="bottom-nav">
+			<button> 🏠 Home </button>
+			<button> 👶 Baby </button>
+			<button> 📅 Timeline </button>
+			<button> 📊 Stats </button>
+		</nav>
+	</div>
+	<script>
+	const LMP_DATE = new Date("2026-04-20T00:00:00");
+	const DUE_DATE = new Date("2027-01-25T00:00:00");
+	const TOTAL_DAYS = Math.floor(
+		(DUE_DATE - LMP_DATE) / 86400000);
+	let currentView = "development";
+	let lastWeek = null;
+	let lastImageKey = null;
+	/* -------------------
+	   THEME
+	------------------- */
+	if(localStorage.getItem("theme") === "light") {
+		document.body.classList.add("light");
+	}
+	document.getElementById("themeToggle").addEventListener("click", () => {
+		document.body.classList.toggle("light");
+		localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
+	});
+	/* -------------------
+	   BABY DATA
+	------------------- */
+	const babyData = {
+		8: {
+			emoji: "🫐",
+			fruit: "Blueberry",
+			length: "1.6 cm",
+			weight: "1 g",
+			fact: "Tiny arms and legs are developing."
+		},
+		12: {
+			emoji: "🍋",
+			fruit: "Lime",
+			length: "6 cm",
+			weight: "14 g",
+			fact: "Major organs have formed."
+		},
+		16: {
+			emoji: "🥑",
+			fruit: "Avocado",
+			length: "12 cm",
+			weight: "100 g",
+			fact: "Baby can move arms and legs."
+		},
+		20: {
+			emoji: "🍌",
+			fruit: "Banana",
+			length: "25 cm",
+			weight: "300 g",
+			fact: "Baby can hear sounds."
+		},
+		24: {
+			emoji: "🌽",
+			fruit: "Corn",
+			length: "30 cm",
+			weight: "600 g",
+			fact: "Lungs continue developing."
+		},
+		28: {
+			emoji: "🍆",
+			fruit: "Eggplant",
+			length: "37 cm",
+			weight: "1 kg",
+			fact: "Eyes can open and close."
+		},
+		32: {
+			emoji: "🥥",
+			fruit: "Coconut",
+			length: "42 cm",
+			weight: "1.8 kg",
+			fact: "Rapid weight gain begins."
+		},
+		36: {
+			emoji: "🍈",
+			fruit: "Honeydew",
+			length: "47 cm",
+			weight: "2.6 kg",
+			fact: "Baby prepares for birth."
+		},
+		40: {
+			emoji: "🍉",
+			fruit: "Watermelon",
+			length: "51 cm",
+			weight: "3.4 kg",
+			fact: "Full term baby."
+		}
+	};
+	/* -------------------
+	   IMAGE VIEW SWITCH
+	------------------- */
+	document.getElementById("developmentBtn").addEventListener("click", () => {
+		currentView = "development";
+		updateImage(window.currentWeek || 1, window.currentDay || 0);
+	});
+	document.getElementById("ultrasoundBtn").addEventListener("click", () => {
+		currentView = "ultrasound";
+		updateImage(window.currentWeek || 1, window.currentDay || 0);
+	});
+	/* -------------------
+	   MAIN UPDATE
+	------------------- */
+	function updateTracker() {
+		const now = new Date();
+		if(now < LMP_DATE) {
+			showPrePregnancy(now);
+		} else {
+			showPregnancy(now);
+		}
+	}
+	/* -------------------
+	   BEFORE LMP
+	------------------- */
+	function showPrePregnancy(now) {
+		document.getElementById("preStartSection").style.display = "block";
+		document.getElementById("dashboardSection").style.display = "none";
+		document.getElementById("pregnancyAge").textContent = "Pregnancy Not Started";
+		document.getElementById("heroStatus").textContent = "Waiting for LMP Date";
+		updatePreCountdown(LMP_DATE - now);
+	}
+	/* -------------------
+	   AFTER LMP
+	------------------- */
+	function showPregnancy(now) {
+		document.getElementById("preStartSection").style.display = "none";
+		document.getElementById("dashboardSection").style.display = "block";
+		const elapsedDays = Math.floor(
+			(now - LMP_DATE) / 86400000);
+		const week = Math.floor(elapsedDays / 7);
+		const day = elapsedDays % 7;
+		window.currentWeek = week;
+		window.currentDay = day;
+		document.getElementById("pregnancyAge").textContent = `Week ${week} Day ${day}`;
+		document.getElementById("heroStatus").textContent = "Expected Arrival: 25 Jan 2027";
+		const completed = elapsedDays;
+		const remaining = Math.max(0, Math.floor(
+			(DUE_DATE - now) / 86400000));
+		const percent = Math.min(100, (completed / TOTAL_DAYS) * 100);
+		document.getElementById("completedDays").textContent = completed;
+		document.getElementById("remainingDays").textContent = remaining;
+		document.getElementById("statAge").textContent = `W${week} D${day}`;
+		document.getElementById("statCompleted").textContent = percent.toFixed(1) + "%";
+		document.getElementById("statRemaining").textContent = (100 - percent).toFixed(1) + "%";
+		updateTrimester(week);
+		updateRing(percent);
+		updateDueCountdown(now);
+		if(lastWeek !== week) {
+			updateBabyInfo(week);
+			updateTimeline(week);
+		}
+		maybeUpdateImage(week, day);
+		lastWeek = week;
+	}
+	/* -------------------
+	   PRE COUNTDOWN
+	------------------- */
+	function updatePreCountdown(ms) {
+		let sec = Math.floor(ms / 1000);
+		let months = Math.floor(sec / (30 * 24 * 3600));
+		sec -= months * (30 * 24 * 3600);
+		let weeks = Math.floor(sec / (7 * 24 * 3600));
+		sec -= weeks * (7 * 24 * 3600);
+		let days = Math.floor(sec / (24 * 3600));
+		sec -= days * (24 * 3600);
+		let hours = Math.floor(sec / 3600);
+		sec -= hours * 3600;
+		let mins = Math.floor(sec / 60);
+		sec -= mins * 60;
+		document.getElementById("preMonths").textContent = months;
+		document.getElementById("preWeeks").textContent = weeks;
+		document.getElementById("preDays").textContent = days;
+		document.getElementById("preHours").textContent = hours;
+		document.getElementById("preMinutes").textContent = mins;
+		document.getElementById("preSeconds").textContent = sec;
+	}
+	/* -------------------
+	   RING
+	------------------- */
+	function updateRing(percent) {
+		const circle = document.getElementById("progressRing");
+		const radius = 95;
+		const circumference = 2 * Math.PI * radius;
+		circle.style.strokeDasharray = circumference;
+		circle.style.strokeDashoffset = circumference - (percent / 100) * circumference;
+		document.getElementById("progressText").textContent = percent.toFixed(1) + "%";
+	}
+	/* -------------------
+	   DUE COUNTDOWN
+	------------------- */
+	function updateDueCountdown(now) {
+		let diff = Math.max(0, DUE_DATE - now);
+		let total = Math.floor(diff / 1000);
+		let months = Math.floor(total / (30 * 24 * 3600));
+		total -= months * (30 * 24 * 3600);
+		let weeks = Math.floor(total / (7 * 24 * 3600));
+		total -= weeks * (7 * 24 * 3600);
+		let days = Math.floor(total / (24 * 3600));
+		total -= days * (24 * 3600);
+		let hours = Math.floor(total / 3600);
+		total -= hours * 3600;
+		let mins = Math.floor(total / 60);
+		total -= mins * 60;
+		let secs = total;
+		document.getElementById("months").textContent = months;
+		document.getElementById("weeks").textContent = weeks;
+		document.getElementById("days").textContent = days;
+		document.getElementById("hours").textContent = hours;
+		document.getElementById("minutes").textContent = mins;
+		document.getElementById("seconds").textContent = secs;
+		updateWeekCountdown(diff);
+		updateCompletion(now);
+	}
+	/* -------------------
+	   WEEK FORMAT
+	------------------- */
+	function updateWeekCountdown(diff) {
+		let total = Math.floor(diff / 1000);
+		let weeks = Math.floor(total / (7 * 24 * 3600));
+		total -= weeks * (7 * 24 * 3600);
+		let days = Math.floor(total / (24 * 3600));
+		total -= days * (24 * 3600);
+		let hours = Math.floor(total / 3600);
+		total -= hours * 3600;
+		let mins = Math.floor(total / 60);
+		total -= mins * 60;
+		let secs = total;
+		document.getElementById("weekOnly").textContent = weeks;
+		document.getElementById("weekDays").textContent = days;
+		document.getElementById("weekHours").textContent = hours;
+		document.getElementById("weekMinutes").textContent = mins;
+		document.getElementById("weekSeconds").textContent = secs;
+	}
+
+	function updateCompletion(now) {
+		const elapsed = Math.max(0, now - LMP_DATE);
+		let total = Math.floor(elapsed / 1000);
+		// ---------------- FULL FORMAT ----------------
+		let months = Math.floor(total / (30 * 24 * 3600));
+		total -= months * (30 * 24 * 3600);
+		let weeks = Math.floor(total / (7 * 24 * 3600));
+		total -= weeks * (7 * 24 * 3600);
+		let days = Math.floor(total / (24 * 3600));
+		total -= days * (24 * 3600);
+		let hours = Math.floor(total / 3600);
+		total -= hours * 3600;
+		let minutes = Math.floor(total / 60);
+		total -= minutes * 60;
+		let seconds = total;
+		document.getElementById("compMonths").textContent = months;
+		document.getElementById("compWeeks").textContent = weeks;
+		document.getElementById("compDays").textContent = days;
+		document.getElementById("compHours").textContent = hours;
+		document.getElementById("compMinutes").textContent = minutes;
+		document.getElementById("compSeconds").textContent = seconds;
+		// ---------------- WEEK FORMAT ----------------
+		let total2 = Math.floor(elapsed / 1000);
+		let w = Math.floor(total2 / (7 * 24 * 3600));
+		total2 -= w * (7 * 24 * 3600);
+		let d = Math.floor(total2 / (24 * 3600));
+		total2 -= d * (24 * 3600);
+		let h = Math.floor(total2 / 3600);
+		total2 -= h * 3600;
+		let m = Math.floor(total2 / 60);
+		total2 -= m * 60;
+		let s = total2;
+		document.getElementById("compWeekOnly").textContent = w;
+		document.getElementById("compWeekDays").textContent = d;
+		document.getElementById("compWeekHours").textContent = h;
+		document.getElementById("compWeekMinutes").textContent = m;
+		document.getElementById("compWeekSeconds").textContent = s;
+	}
+	/* -------------------
+	   BABY INFO
+	------------------- */
+	function updateBabyInfo(week) {
+		let selected = 8;
+		for(let w in babyData) {
+			if(week >= parseInt(w)) {
+				selected = w;
+			}
+		}
+		const data = babyData[selected];
+		document.getElementById("fruitEmoji").textContent = data.emoji;
+		document.getElementById("fruitName").textContent = data.fruit;
+		document.getElementById("babyLength").textContent = data.length;
+		document.getElementById("babyWeight").textContent = data.weight;
+		document.getElementById("babyFact").textContent = data.fact;
+		document.getElementById("weeklyFacts").textContent = data.fact;
+	}
+	/* -------------------
+	   IMAGE LOADER
+	------------------- */
+	function updateImage(week, day) {
+		let phase = "a";
+		if(day >= 3 && day <= 4) {
+			phase = "b";
+		}
+		if(day >= 5) {
+			phase = "c";
+		}
+		let path = "";
+		if(currentView === "development") {
+			path = `images/fetus/week${String(week).padStart(2,"0")}_${phase}.webp`;
+		} else {
+			path = `images/ultrasound/week${String(week).padStart(2,"0")}.webp`;
+		}
+		document.getElementById("babyImage").src = path;
+	}
+
+	function maybeUpdateImage(week, day) {
+		// 3 phases per week (A, B, C)
+		let phase = "a";
+		if(day >= 3 && day <= 4) {
+			phase = "b";
+		}
+		if(day >= 5) {
+			phase = "c";
+		}
+		const key = `${week}_${currentView}_${phase}`;
+		if(key === lastImageKey) {
+			return; // do nothing if same image already shown
+		}
+		lastImageKey = key;
+		updateImage(week, day);
+	}
+	/* -------------------
+	   TRIMESTER
+	------------------- */
+	function updateTrimester(week) {
+		let trimester = "First";
+		if(week > 13) {
+			trimester = "Second";
+		}
+		if(week > 27) {
+			trimester = "Third";
+		}
+		document.getElementById("statTrimester").textContent = trimester;
+	}
+	/* -------------------
+	   TIMELINE
+	------------------- */
+	function updateTimeline(week) {
+		document.querySelectorAll(".timeline-item").forEach(item => {
+			const w = parseInt(item.dataset.week);
+			item.className = "timeline-item";
+			if(w < week) {
+				item.classList.add("completed");
+			} else if(w === week) {
+				item.classList.add("current");
+			} else {
+				item.classList.add("upcoming");
+			}
+		});
+	}
+	/* -------------------
+	   START
+	------------------- */
+	updateTracker();
+	setInterval(updateCountdownsOnly, 1000);
+
+	function updateCountdownsOnly() {
+		const now = new Date();
+		if(now < LMP_DATE) {
+			updatePreCountdown(LMP_DATE - now);
+		} else {
+			updateDueCountdown(now);
+		}
+	}
+	</script>
+</body>
 
-const LMP_DATE = new Date("2026-04-20T00:00:00");
-const DUE_DATE = new Date("2027-01-25T00:00:00");
-
-const TOTAL_DAYS =
-Math.floor(
-(DUE_DATE - LMP_DATE) / 86400000
-);
-
-let currentView = "development";
-let lastWeek = null;
-let lastImageKey = null;
-
-
-/* -------------------
-   THEME
-------------------- */
-
-if(localStorage.getItem("theme")==="light"){
-document.body.classList.add("light");
-}
-
-document
-.getElementById("themeToggle")
-.addEventListener("click",()=>{
-
-document.body.classList.toggle("light");
-
-localStorage.setItem(
-"theme",
-document.body.classList.contains("light")
-? "light"
-: "dark"
-);
-
-});
-
-/* -------------------
-   BABY DATA
-------------------- */
-
-const babyData = {
-
-8:{
-emoji:"🫐",
-fruit:"Blueberry",
-length:"1.6 cm",
-weight:"1 g",
-fact:"Tiny arms and legs are developing."
-},
-
-12:{
-emoji:"🍋",
-fruit:"Lime",
-length:"6 cm",
-weight:"14 g",
-fact:"Major organs have formed."
-},
-
-16:{
-emoji:"🥑",
-fruit:"Avocado",
-length:"12 cm",
-weight:"100 g",
-fact:"Baby can move arms and legs."
-},
-
-20:{
-emoji:"🍌",
-fruit:"Banana",
-length:"25 cm",
-weight:"300 g",
-fact:"Baby can hear sounds."
-},
-
-24:{
-emoji:"🌽",
-fruit:"Corn",
-length:"30 cm",
-weight:"600 g",
-fact:"Lungs continue developing."
-},
-
-28:{
-emoji:"🍆",
-fruit:"Eggplant",
-length:"37 cm",
-weight:"1 kg",
-fact:"Eyes can open and close."
-},
-
-32:{
-emoji:"🥥",
-fruit:"Coconut",
-length:"42 cm",
-weight:"1.8 kg",
-fact:"Rapid weight gain begins."
-},
-
-36:{
-emoji:"🍈",
-fruit:"Honeydew",
-length:"47 cm",
-weight:"2.6 kg",
-fact:"Baby prepares for birth."
-},
-
-40:{
-emoji:"🍉",
-fruit:"Watermelon",
-length:"51 cm",
-weight:"3.4 kg",
-fact:"Full term baby."
-}
-
-};
-
-/* -------------------
-   IMAGE VIEW SWITCH
-------------------- */
-
-document
-.getElementById("developmentBtn")
-.addEventListener("click",()=>{
-
-currentView="development";
-
-updateImage(
-window.currentWeek || 1,
-window.currentDay || 0
-);
-
-});
-
-document
-.getElementById("ultrasoundBtn")
-.addEventListener("click",()=>{
-
-currentView="ultrasound";
-
-updateImage(
-window.currentWeek || 1,
-window.currentDay || 0
-);
-
-});
-
-/* -------------------
-   MAIN UPDATE
-------------------- */
-
-function updateTracker(){
-
-const now = new Date();
-
-if(now < LMP_DATE){
-
-showPrePregnancy(now);
-
-}else{
-
-showPregnancy(now);
-
-}
-
-}
-
-/* -------------------
-   BEFORE LMP
-------------------- */
-
-function showPrePregnancy(now){
-
-document
-.getElementById("preStartSection")
-.style.display="block";
-
-document
-.getElementById("dashboardSection")
-.style.display="none";
-
-document
-.getElementById("pregnancyAge")
-.textContent=
-"Pregnancy Not Started";
-
-document
-.getElementById("heroStatus")
-.textContent=
-"Waiting for LMP Date";
-
-updatePreCountdown(
-LMP_DATE-now
-);
-
-}
-
-/* -------------------
-   AFTER LMP
-------------------- */
-
-function showPregnancy(now){
-
-document
-.getElementById("preStartSection")
-.style.display="none";
-
-document
-.getElementById("dashboardSection")
-.style.display="block";
-
-const elapsedDays =
-Math.floor(
-(now-LMP_DATE)/86400000
-);
-
-const week =
-Math.floor(elapsedDays/7);
-
-const day =
-elapsedDays%7;
-
-window.currentWeek=week;
-window.currentDay=day;
-
-document
-.getElementById("pregnancyAge")
-.textContent=
-`Week ${week} Day ${day}`;
-
-document
-.getElementById("heroStatus")
-.textContent=
-"Expected Arrival: 25 Jan 2027";
-
-const completed =
-elapsedDays;
-
-const remaining =
-Math.max(
-0,
-Math.floor(
-(DUE_DATE-now)/86400000
-)
-);
-
-const percent =
-Math.min(
-100,
-(completed/TOTAL_DAYS)*100
-);
-
-document
-.getElementById("completedDays")
-.textContent=
-completed;
-
-document
-.getElementById("remainingDays")
-.textContent=
-remaining;
-
-document
-.getElementById("statAge")
-.textContent=
-`W${week} D${day}`;
-
-document
-.getElementById("statCompleted")
-.textContent=
-percent.toFixed(1)+"%";
-
-document
-.getElementById("statRemaining")
-.textContent=
-(100-percent).toFixed(1)+"%";
-
-updateTrimester(week);
-
-updateRing(percent);
-
-updateDueCountdown(now);
-
-if(lastWeek !== week){
-  updateBabyInfo(week);
-  updateTimeline(week);
-}
-maybeUpdateImage(week, day);
-
-lastWeek = week;
-
-}
-
-/* -------------------
-   PRE COUNTDOWN
-------------------- */
-
-function updatePreCountdown(ms){
-
-let sec =
-Math.floor(ms/1000);
-
-let months =
-Math.floor(sec/(30*24*3600));
-
-sec -= months*(30*24*3600);
-
-let weeks =
-Math.floor(sec/(7*24*3600));
-
-sec -= weeks*(7*24*3600);
-
-let days =
-Math.floor(sec/(24*3600));
-
-sec -= days*(24*3600);
-
-let hours =
-Math.floor(sec/3600);
-
-sec-=hours*3600;
-
-let mins =
-Math.floor(sec/60);
-
-sec-=mins*60;
-
-document.getElementById("preMonths").textContent=months;
-document.getElementById("preWeeks").textContent=weeks;
-document.getElementById("preDays").textContent=days;
-document.getElementById("preHours").textContent=hours;
-document.getElementById("preMinutes").textContent=mins;
-document.getElementById("preSeconds").textContent=sec;
-
-}
-
-/* -------------------
-   RING
-------------------- */
-
-function updateRing(percent){
-
-const circle=
-document.getElementById("progressRing");
-
-const radius=95;
-
-const circumference=
-2*Math.PI*radius;
-
-circle.style.strokeDasharray=
-circumference;
-
-circle.style.strokeDashoffset=
-circumference-
-(percent/100)*circumference;
-
-document
-.getElementById("progressText")
-.textContent=
-percent.toFixed(1)+"%";
-
-}
-
-/* -------------------
-   DUE COUNTDOWN
-------------------- */
-
-function updateDueCountdown(now){
-
-let diff =
-Math.max(
-0,
-DUE_DATE-now
-);
-
-let total =
-Math.floor(diff/1000);
-
-let months=
-Math.floor(total/(30*24*3600));
-
-total-=months*(30*24*3600);
-
-let weeks=
-Math.floor(total/(7*24*3600));
-
-total-=weeks*(7*24*3600);
-
-let days=
-Math.floor(total/(24*3600));
-
-total-=days*(24*3600);
-
-let hours=
-Math.floor(total/3600);
-
-total-=hours*3600;
-
-let mins=
-Math.floor(total/60);
-
-total-=mins*60;
-
-let secs=total;
-
-
-document.getElementById("months").textContent=months;
-document.getElementById("weeks").textContent=weeks;
-document.getElementById("days").textContent=days;
-document.getElementById("hours").textContent=hours;
-document.getElementById("minutes").textContent=mins;
-document.getElementById("seconds").textContent=secs;
-
-updateWeekCountdown(diff);
-updateCompletion(now);
-}
-
-/* -------------------
-   WEEK FORMAT
-------------------- */
-
-function updateWeekCountdown(diff){
-
-let total =
-Math.floor(diff/1000);
-
-let weeks =
-Math.floor(total/(7*24*3600));
-
-total-=weeks*(7*24*3600);
-
-let days =
-Math.floor(total/(24*3600));
-
-total-=days*(24*3600);
-
-let hours =
-Math.floor(total/3600);
-
-total-=hours*3600;
-
-let mins =
-Math.floor(total/60);
-
-total-=mins*60;
-
-let secs=total;
-
-document.getElementById("weekOnly").textContent=weeks;
-document.getElementById("weekDays").textContent=days;
-document.getElementById("weekHours").textContent=hours;
-document.getElementById("weekMinutes").textContent=mins;
-document.getElementById("weekSeconds").textContent=secs;
-
-}
-
-function updateCompletion(now){
-
-  const elapsed = Math.max(0, now - LMP_DATE);
-
-  let total = Math.floor(elapsed / 1000);
-
-  // ---------------- FULL FORMAT ----------------
-  let months = Math.floor(total / (30 * 24 * 3600));
-  total -= months * (30 * 24 * 3600);
-
-  let weeks = Math.floor(total / (7 * 24 * 3600));
-  total -= weeks * (7 * 24 * 3600);
-
-  let days = Math.floor(total / (24 * 3600));
-  total -= days * (24 * 3600);
-
-  let hours = Math.floor(total / 3600);
-  total -= hours * 3600;
-
-  let minutes = Math.floor(total / 60);
-  total -= minutes * 60;
-
-  let seconds = total;
-
-  document.getElementById("compMonths").textContent = months;
-  document.getElementById("compWeeks").textContent = weeks;
-  document.getElementById("compDays").textContent = days;
-  document.getElementById("compHours").textContent = hours;
-  document.getElementById("compMinutes").textContent = minutes;
-  document.getElementById("compSeconds").textContent = seconds;
-
-  // ---------------- WEEK FORMAT ----------------
-  let total2 = Math.floor(elapsed / 1000);
-
-  let w = Math.floor(total2 / (7 * 24 * 3600));
-  total2 -= w * (7 * 24 * 3600);
-
-  let d = Math.floor(total2 / (24 * 3600));
-  total2 -= d * (24 * 3600);
-
-  let h = Math.floor(total2 / 3600);
-  total2 -= h * 3600;
-
-  let m = Math.floor(total2 / 60);
-  total2 -= m * 60;
-
-  let s = total2;
-
-  document.getElementById("compWeekOnly").textContent = w;
-  document.getElementById("compWeekDays").textContent = d;
-  document.getElementById("compWeekHours").textContent = h;
-  document.getElementById("compWeekMinutes").textContent = m;
-  document.getElementById("compWeekSeconds").textContent = s;
-}
-
-/* -------------------
-   BABY INFO
-------------------- */
-
-function updateBabyInfo(week){
-
-let selected=8;
-
-for(let w in babyData){
-
-if(week>=parseInt(w)){
-selected=w;
-}
-
-}
-
-const data=
-babyData[selected];
-
-document.getElementById("fruitEmoji").textContent=data.emoji;
-document.getElementById("fruitName").textContent=data.fruit;
-document.getElementById("babyLength").textContent=data.length;
-document.getElementById("babyWeight").textContent=data.weight;
-document.getElementById("babyFact").textContent=data.fact;
-document.getElementById("weeklyFacts").textContent=data.fact;
-
-}
-
-/* -------------------
-   IMAGE LOADER
-------------------- */
-
-function updateImage(week,day){
-
-let phase="a";
-
-if(day>=3 && day<=4){
-phase="b";
-}
-
-if(day>=5){
-phase="c";
-}
-
-let path="";
-
-if(currentView==="development"){
-
-path=
-`images/fetus/week${String(week).padStart(2,"0")}_${phase}.webp`;
-
-}else{
-
-path=
-`images/ultrasound/week${String(week).padStart(2,"0")}.webp`;
-
-}
-
-document
-.getElementById("babyImage")
-.src=path;
-
-}
-
-function maybeUpdateImage(week, day){
-
-  // 3 phases per week (A, B, C)
-  let phase = "a";
-
-  if(day >= 3 && day <= 4){
-    phase = "b";
-  }
-
-  if(day >= 5){
-    phase = "c";
-  }
-
-  const key = `${week}_${currentView}_${phase}`;
-
-  if(key === lastImageKey){
-    return; // do nothing if same image already shown
-  }
-
-  lastImageKey = key;
-
-  updateImage(week, day);
-}
-
-/* -------------------
-   TRIMESTER
-------------------- */
-
-function updateTrimester(week){
-
-let trimester="First";
-
-if(week>13){
-trimester="Second";
-}
-
-if(week>27){
-trimester="Third";
-}
-
-document
-.getElementById("statTrimester")
-.textContent=
-trimester;
-
-}
-
-/* -------------------
-   TIMELINE
-------------------- */
-
-function updateTimeline(week){
-
-document
-.querySelectorAll(".timeline-item")
-.forEach(item=>{
-
-const w=
-parseInt(
-item.dataset.week
-);
-
-item.className=
-"timeline-item";
-
-if(w<week){
-
-item.classList.add(
-"completed"
-);
-
-}
-else if(w===week){
-
-item.classList.add(
-"current"
-);
-
-}
-else{
-
-item.classList.add(
-"upcoming"
-);
-
-}
-
-});
-
-}
-
-/* -------------------
-   START
-------------------- */
-
-updateTracker();
-
-setInterval(updateCountdownsOnly, 1000);
-
-function updateCountdownsOnly(){
-  const now = new Date();
-
-  if(now < LMP_DATE){
-    updatePreCountdown(LMP_DATE - now);
-  } else {
-    updateDueCountdown(now);
-  }
-}
-
-</script></body>
 </html>
